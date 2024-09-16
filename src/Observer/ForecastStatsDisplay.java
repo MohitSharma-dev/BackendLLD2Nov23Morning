@@ -13,6 +13,11 @@ public class ForecastStatsDisplay implements Observer {
         display();
     }
 
+    @Override
+    public void update() {
+
+    }
+
     void display(){
         System.out.print("Forecast : ");
         System.out.print("Temperature : " + temperature);
