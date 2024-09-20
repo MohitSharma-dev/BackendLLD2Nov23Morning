@@ -1,8 +1,9 @@
 package TicTacToe.strategies;
 
 import TicTacToe.models.Board;
+import TicTacToe.models.Move;
 import TicTacToe.models.Player;
 
 public interface BotPlayingStategy {
-    void makeMove(Board board , Player player);
+    Move makeMove(Board board , Player player);
 }

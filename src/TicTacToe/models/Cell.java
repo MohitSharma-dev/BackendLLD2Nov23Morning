@@ -17,7 +17,7 @@ public class Cell {
         if(symbol == null){
             System.out.print("| - |");
         } else {
-            System.out.print("| - " + symbol.getCharSymbol() + " |");
+            System.out.print("| " + symbol.getCharSymbol() + " |");
         }
     }
 

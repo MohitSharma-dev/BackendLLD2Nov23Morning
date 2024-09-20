@@ -1,5 +1,6 @@
 package TicTacToe.models;
 
+import TicTacToe.exceptions.InvalidMoveException;
 import TicTacToe.strategies.WinningStrategy;
 
 import java.util.ArrayList;
@@ -88,7 +89,82 @@ public class Game {
         board.displayBoard();
     }
 
+    public boolean validateMove(Move move){
+        int r = move.getCell().getRow();
+        int c = move.getCell().getCol();
+
+        if(r  < 0 || c < 0 || r > board.getGrid().size() - 1 || c > board.getGrid().size() - 1){
+            return false;
+        }
+        return !board.getGrid().get(r).get(c).getCellState().equals(CellState.FILLED);
+    }
+
+    public boolean checkWinner(Move move){
+        for(WinningStrategy winningStrategy : winningStrategies){
+            if(winningStrategy.checkWinner(board, move)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void makeMove(){
+        Player currentPlayer = players.get(nextPlayerIndex);
+
+        System.out.println("It's " + currentPlayer.getName() + "'s turn. Please make your move");
+        Move move = currentPlayer.makeMove(board);
+
+        // validate the move
+        if(!validateMove(move)){
+            throw new InvalidMoveException("Invalid Move, Please try again!");
+        }
+
+        int row = move.getCell().getRow();
+        int col = move.getCell().getCol();
+
+        Cell cell = board.getGrid().get(row).get(col);
+        cell.setCellState(CellState.FILLED);
+        cell.setSymbol(currentPlayer.getSymbol());
+
+        nextPlayerIndex += 1;
+        nextPlayerIndex %= players.size();
+
+        move.setCell(cell);
+        moves.add(move);
+
+//        update the state of the game by checking if winner is there or not
+        if(checkWinner(move)){
+            setWinner(currentPlayer);
+            setGameState(GameState.SUCCESS);
+        } else if (moves.size() == board.getSize() * board.getSize()){
+            setWinner(null);
+            setGameState(GameState.DRAW);
+        }
+
+    }
+
+    public void undo(){
+        if(moves.isEmpty()){
+            System.out.println("No moves present. Can't Undo");
+            return;
+        }
+
+        Move lastMove = moves.get(moves.size() - 1);
+        moves.remove(moves.size() - 1);
+
+        Cell cell = lastMove.getCell();
+        cell.setCellState(CellState.EMPTY);
+        cell.setSymbol(null);
+
+        nextPlayerIndex = (nextPlayerIndex - 1 + players.size()) % players.size();
+//        (a - b) % n = (a - b + n) % n
+
+        for(WinningStrategy winningStrategy : winningStrategies){
+            winningStrategy.handleUndo(board, lastMove);
+        }
+
+        setWinner(null);
+        setGameState(GameState.IN_PROGRESS);
 
     }
 

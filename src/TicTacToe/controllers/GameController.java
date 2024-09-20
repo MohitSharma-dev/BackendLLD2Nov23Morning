@@ -1,5 +1,6 @@
 package TicTacToe.controllers;
 
+import TicTacToe.exceptions.InvalidMoveException;
 import TicTacToe.models.Game;
 import TicTacToe.models.GameState;
 import TicTacToe.models.Player;
@@ -26,7 +27,11 @@ public class GameController {
     }
 
     public void makeMove(Game game){
-        game.makeMove();
+       try {
+           game.makeMove();
+       } catch (InvalidMoveException e) {
+           System.out.println(e.getMessage());
+       }
     }
 
     public GameState checkState(Game game){
@@ -34,7 +39,7 @@ public class GameController {
     }
 
     public void undo(Game game){
-
+        game.undo();
     }
 
     public Player getWinner(Game game){
