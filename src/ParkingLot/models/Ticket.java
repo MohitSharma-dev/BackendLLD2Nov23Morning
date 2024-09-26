@@ -1,10 +1,12 @@
 package ParkingLot.models;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Ticket extends BaseModel {
     private String number;
-    private Date entryTime;
+    private LocalDateTime entryTime;
     private Vehicle vehicle;
     private Operator operator;
     private Gate gate;
@@ -18,11 +20,11 @@ public class Ticket extends BaseModel {
         this.number = number;
     }
 
-    public Date getEntryTime() {
+    public LocalDateTime getEntryTime() {
         return entryTime;
     }
 
-    public void setEntryTime(Date entryTime) {
+    public void setEntryTime(LocalDateTime entryTime) {
         this.entryTime = entryTime;
     }
 
