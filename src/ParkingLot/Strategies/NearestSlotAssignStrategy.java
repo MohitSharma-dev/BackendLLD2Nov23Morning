@@ -1,4 +1,4 @@
-package ParkingLot.Strtegies;
+package ParkingLot.Strategies;
 
 import ParkingLot.models.ParkingSlot;
 import ParkingLot.models.ParkingSlotStatus;

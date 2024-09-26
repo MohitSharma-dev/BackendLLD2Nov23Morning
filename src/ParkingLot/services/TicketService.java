@@ -1,13 +1,11 @@
 package ParkingLot.services;
 
-import ParkingLot.Strtegies.NearestSlotAssignStrategy;
-import ParkingLot.Strtegies.SlotAssignStrategy;
+import ParkingLot.Strategies.SlotAssignStrategy;
 import ParkingLot.models.*;
 import ParkingLot.repositories.GateRepository;
 import ParkingLot.repositories.TicketRepository;
 import ParkingLot.repositories.VehicleRepository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
