@@ -19,7 +19,8 @@ public class TicketController {
                     request.getVehicleNumber(),
                     request.getOwnerName(),
                     request.getVehicleType(),
-                    request.getGateId()
+                    request.getGateId(),
+                    request.getParkingLotId()
             );
 
             response.setTicket(ticket);
@@ -36,3 +37,13 @@ public class TicketController {
 // Data Transfer Object
 
 // IssueTicketRequest
+
+
+// HW : Generate Bill
+
+// BillController
+// ticketID
+
+
+
+
